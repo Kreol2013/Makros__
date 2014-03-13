@@ -1,0 +1,102 @@
+Sub Convert_color()
+'Create Pilyuganov Anton
+'Date 12/31/2013
+'Licence: mandatory reference to the source!!! '
+'
+'Открываем книгу с вышивкой
+  Application.ScreenUpdating = False
+  Windows("36.xls").Activate
+  'переходим на вкладку цветов
+  Sheets("Colors").Select
+  color_off = 1
+  Dim LastRow_work As Integer
+  
+
+    LastRow_work = Sheets("Colors").Cells(Sheets("Colors").Rows.Count, "D").End(xlUp).Row
+   If color_off = 0 Then
+    For i = 2 To LastRow_work
+      Cells(i, 4).Select
+      If ActiveCell.Errors.Item(xlNumberAsText).Value = True Then
+        ActiveCell.Value = Val(ActiveCell.Value)
+      End If
+    Next i
+    Range("G2").Select
+    ActiveCell.FormulaR1C1 = _
+    "=VLOOKUP(RC[-3],'[Multik_color_20_02_2014b12.xls]Paterna Wool'!R2C2:R418C10,9,0)"
+    Selection.AutoFill Destination:=Range("G2:G" & LastRow_work), Type:=xlFillDefault
+    Columns("G:G").Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+                                                                  :=False, Transpose:=False
+  End If
+  Windows("36.xls").Activate
+  If (Sh_Exist("Scheme") = True) Then
+    Sheets("Scheme").Select
+    For Each rCell In Sheets("Scheme").UsedRange
+      For Z = 2 To LastRow_work
+        rCell.Select
+        If ActiveCell.Errors.Item(xlNumberAsText).Value = True Then
+          ActiveCell.Value = Val(ActiveCell.Value)
+        End If
+        If (rCell.Value = Sheets("Colors").Cells(Z, 2).Value) Then
+          rCell.Select
+
+          Select Case Sheets("Colors").Cells(Z, 7).Value
+          Case "BLACK"
+            rCell.Interior.color = 0
+            'rCell.Value = ""
+            Exit For
+          Case "ORANGE"
+            rCell.Interior.color = 49407
+            'rCell.Value = ""
+            Exit For
+          Case "YELLOW"
+            rCell.Interior.color = 65535
+            'rCell.Value = ""
+            Exit For
+          Case "MIX"
+            rCell.Interior.color = 6299648
+            'rCell.Value = ""
+            Exit For
+          Case "GREEN"
+            rCell.Interior.color = 5287936
+            'rCell.Value = ""
+            Exit For
+          Case "GREY"
+            rCell.Interior.color = 10855845
+            'rCell.Value = ""
+            Exit For
+          Case "VIOLET"
+            rCell.Interior.color = 10498160
+            'rCell.Value = ""
+            Exit For
+          Case "BROWN"
+            rCell.Interior.color = 801923
+            'rCell.Value = ""
+            Exit For
+          Case "WHITE"
+            rCell.Interior.color = 16777215
+            'rCell.Value = ""
+            Exit For
+          Case "RED"
+            rCell.Interior.color = 255
+            'rCell.Value = ""
+            Exit For
+          Case "BLUE"
+            rCell.Interior.color = 13998939
+            'rCell.Value = ""
+            Exit For
+          End Select
+        End If
+      Next
+    Next
+  End If
+  Application.ScreenUpdating = True
+End Sub
+
+Function Sh_Exist(sName As String) As Boolean
+  Dim wsSh As Worksheet
+  On Error Resume Next
+  Set wsSh = Sheets(sName)
+  Sh_Exist = Not wsSh Is Nothing
+End Function
