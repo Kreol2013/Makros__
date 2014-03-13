@@ -3,10 +3,10 @@ Sub Convert_color()
 'Date 12/31/2013
 'Licence: mandatory reference to the source!!! '
 '
-'Открываем книгу с вышивкой
+'РћС‚РєСЂС‹РІР°РµРј РєРЅРёРіСѓ СЃ РІС‹С€РёРІРєРѕР№
   Application.ScreenUpdating = False
   Windows("36.xls").Activate
-  'переходим на вкладку цветов
+  'РїРµСЂРµС…РѕРґРёРј РЅР° РІРєР»Р°РґРєСѓ С†РІРµС‚РѕРІ
   Sheets("Colors").Select
   color_off = 1
   Dim LastRow_work As Integer
